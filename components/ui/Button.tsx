@@ -11,18 +11,19 @@ type CommonProps = {
   type?: 'button' | 'submit' | 'reset';
 };
 
-const baseClasses = 'inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 rounded-full whitespace-nowrap text-sm';
+const baseClasses = 'inline-flex items-center justify-center font-semibold transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed';
 
 const variantClasses: Record<Variant, string> = {
-  primary: 'bg-[var(--color-primary)] text-white hover:bg-blue-600 px-6 py-3',
-  secondary: 'bg-[var(--color-accent)] text-white hover:bg-green-600 px-6 py-3',
-  outline: 'border border-subtle text-[var(--color-text-primary)] hover:bg-[var(--color-bg-surface)] px-6 py-3',
-  ghost: 'text-[var(--color-text-primary)] hover:bg-[var(--color-bg-surface)] px-4 py-2',
+  primary: 'bg-blue-600 text-white hover:bg-blue-700 hover:scale-[1.02] px-6 py-3 rounded-lg shadow-lg shadow-blue-900/30 hover:shadow-blue-900/50',
+  secondary: 'bg-green-600 text-white hover:bg-green-700 hover:scale-[1.02] px-6 py-3 rounded-lg shadow-lg shadow-green-900/30 hover:shadow-green-900/50',
+  outline: 'border border-gray-700 text-white hover:bg-slate-900 hover:border-blue-600 px-6 py-3 rounded-lg',
+  ghost: 'text-gray-300 hover:text-blue-400 px-4 py-2 rounded-md hover:bg-slate-900',
 };
 
 export function Button(props: CommonProps & React.ButtonHTMLAttributes<HTMLButtonElement>) {
   const { variant = 'primary', className = '', children, href, type = 'button', ...rest } = props;
   const classes = `${baseClasses} ${variantClasses[variant]} ${className}`;
+  
   if (href) {
     return (
       <Link href={href} className={classes} {...(rest as any)}>
@@ -30,6 +31,7 @@ export function Button(props: CommonProps & React.ButtonHTMLAttributes<HTMLButto
       </Link>
     );
   }
+  
   return (
     <button type={type} className={classes} {...rest}>
       {children}

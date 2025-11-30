@@ -5,13 +5,29 @@ interface CardProps {
   className?: string;
   as?: keyof JSX.IntrinsicElements;
   hover?: boolean;
+  variant?: 'default' | 'highlight';
 }
 
-export function Card({ children, className = '', as: Tag = 'div', hover = true }: CardProps) {
+export function Card({ 
+  children, 
+  className = '', 
+  as: Tag = 'div', 
+  hover = true,
+  variant = 'default'
+}: CardProps) {
+  const baseStyles = 'rounded-2xl p-6 transition-all duration-300';
+  
+  const variantStyles = {
+    default: 'bg-card border border-card',
+    highlight: 'bg-gradient-to-br from-slate-900 to-slate-950 border border-blue-900/30',
+  };
+  
+  const hoverStyles = hover 
+    ? 'hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-900/20 hover:border-blue-600/50 cursor-pointer' 
+    : '';
+
   return (
-    <Tag
-      className={`rounded-xl border border-subtle bg-[var(--color-bg-surface)]/60 backdrop-blur-sm p-6 ${hover ? 'transition shadow-sm hover:shadow-lg hover:border-[var(--color-primary)] hover:-translate-y-0.5' : ''} ${className}`}
-    >
+    <Tag className={`${baseStyles} ${variantStyles[variant]} ${hoverStyles} ${className}`}>
       {children}
     </Tag>
   );

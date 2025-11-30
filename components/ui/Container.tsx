@@ -11,11 +11,13 @@ const sizeMap = {
   sm: 'max-w-3xl',
   md: 'max-w-5xl',
   lg: 'max-w-7xl',
-  xl: 'max-w-screen-xl',
+  xl: 'max-w-[1280px]',
 };
 
 export function Container({ children, className = '', as: Tag = 'div', size = 'lg' }: ContainerProps) {
   return (
-    <Tag className={`mx-auto ${sizeMap[size]} px-4 md:px-6 ${className}`}>{children}</Tag>
+    <Tag className={`mx-auto ${sizeMap[size]} px-4 sm:px-6 lg:px-8 ${className}`}>
+      {children}
+    </Tag>
   );
 }
